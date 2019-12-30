@@ -10,10 +10,14 @@ import {Color} from './common/model/color.model';
 export class AppComponent implements OnInit {
   public pointerArray: Pointer[] = [];
   public currentPointer: Pointer;
+  public gradientType: string;
+  public gradientDirection: number;
 
   public ngOnInit(): void {
     this.pointerArray.push(this.generateSamplePointer());
     this.currentPointer = this.pointerArray[0];
+    this.gradientType = 'linear-gradient';
+    this.gradientDirection = 90;
   }
   public generateSamplePointer(): Pointer {
     const color = new Color();
@@ -56,4 +60,11 @@ export class AppComponent implements OnInit {
   public onPointerSelect(pointer: Pointer): void {
     this.currentPointer = pointer;
   }
+  public onPointerMove(offset: number): void {
+    this.currentPointer.pointerOffset += offset;
+  }
+  public getGradientPreviewCSSCode(): string {
+
+  }
+  public getGradientFullCSSCode(): string {}
 }

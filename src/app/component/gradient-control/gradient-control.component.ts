@@ -1,4 +1,14 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+  ViewChild
+} from '@angular/core';
 import { Pointer } from '../../common/model/color-pointer.model';
 
 @Component({
@@ -10,8 +20,10 @@ export class GradientControlComponent implements OnInit {
   @ViewChild('gradientPointersFieldRef', {static: true}) public gradientPointersField: ElementRef;
   @Output() public onCreatePointerEvent: EventEmitter<number> = new EventEmitter<number>();
   @Output() public onPointerSelectEvent: EventEmitter<Pointer> = new EventEmitter<Pointer>();
+  @Output() public onPointerMoveEvent: EventEmitter<number> = new EventEmitter<number>();
   @Input() public pointerArray: Pointer[] = [];
   @Input() public currentPointer: Pointer;
+  @Input() public gradientCSSCode: string;
 
   private canDrag: boolean = false;
   private onDragEventHandler: () => void;
@@ -51,7 +63,7 @@ export class GradientControlComponent implements OnInit {
       return;
     }
 
-    this.currentPointer.pointerOffset += event.movementX;
+    this.onPointerMoveEvent.emit(event.movementX);
   }
   public onDragEnd(event: MouseEvent): void {
     this.disableDragging();
