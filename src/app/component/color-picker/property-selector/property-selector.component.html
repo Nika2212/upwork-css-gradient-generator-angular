@@ -1,0 +1,13 @@
+<div class="property-selector-component">
+  <div class="input-field">
+    <span>{{ propertyName | titlecase }} </span>
+    <label for="input-field"></label>
+    <input #inputFieldRef type="number" id="input-field" [ngModel]="propertyValue" (ngModelChange)="onInputChange($event, inputFieldRef)">
+    <sup> %</sup>
+  </div>
+  <div class="ranger-field">
+    <label>
+      <input type="range" min="0" max="100" [value]="propertyValue" [(ngModel)]="propertyValue" (input)="onChange()" [class]="propertyClassName">
+    </label>
+  </div>
+</div>

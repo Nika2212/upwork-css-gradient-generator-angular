@@ -1,0 +1,40 @@
+<div class="color-picker-component">
+  <div class="color-component-heading">Color Picker</div>
+
+  <div class="property-selector-container">
+    <property-selector
+      [propertyName]="'hue'"
+      [propertyClassName]="'hue-gradient'"
+      [propertyValue]="currentPointerColor.HSL[0] | degreeToPercent"
+      (onChangeEvent)="onHueChange($event)">
+    </property-selector>
+  </div>
+  <div class="property-selector-container">
+    <property-selector
+      [propertyName]="'saturation'"
+      [propertyClassName]="'default-gradient'"
+      [propertyValue]="currentPointerColor.HSL[1]"
+      (onChangeEvent)="onSaturationChange($event)">
+    </property-selector>
+  </div>
+  <div class="property-selector-container">
+    <property-selector
+      [propertyName]="'lightness'"
+      [propertyClassName]="'default-gradient'"
+      [propertyValue]="currentPointerColor.HSL[2]"
+      (onChangeEvent)="onLightnessChange($event)">
+    </property-selector>
+  </div>
+  <div class="property-selector-container">
+    <property-selector
+      [propertyName]="'opacity'"
+      [propertyClassName]="'default-gradient'"
+      [propertyValue]="currentPointerColor.RGBA[3]"
+      (onChangeEvent)="onOpacityChange($event)">
+    </property-selector>
+  </div>
+
+  <div class="color-preview-container">
+    <color-preview [RGBA]="currentPointerColor.RGBA" [HEX]="currentPointerColor.HEX"></color-preview>
+  </div>
+</div>

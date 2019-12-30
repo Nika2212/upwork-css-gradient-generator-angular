@@ -1,0 +1,63 @@
+.gradient-control-component {
+  width: 100%;
+  height: 95px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+.gradient-control-component .gradient-view {
+  position: relative;
+
+  width: 100%;
+  height: 60px;
+
+  border: 3px solid #fafafa;
+  border-radius: 3px;
+
+  background-color: #f1f2f3;
+
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, .3);
+}
+.gradient-control-component .gradient-view .gradient-opacity-view {
+  position: absolute;
+
+  left: 0;
+  top: 0;
+
+  width: 100%;
+  height: 100%;
+
+  background-image: linear-gradient(45deg, #ccc 25%, transparent 25%),linear-gradient(-45deg, #ccc 25%, transparent 25%),linear-gradient(45deg, transparent 75%, #ccc 75%),linear-gradient(-45deg, transparent 75%, #ccc 75%);
+  background-size: 20px 20px;
+  background-position: 0 0, 0 10px, 10px -10px, -10px 0;
+
+  z-index: 1;
+}
+.gradient-control-component .gradient-pointers-field {
+  position: relative;
+
+  margin-top: 5px;
+
+  width: 100%;
+  height: 30px;
+
+  border: 1px dashed rgba(0, 179, 255, 0.30);
+  border-radius: 3px;
+
+  background-color: rgba(0, 179, 255, 0.16);
+
+  cursor: copy;
+}
+.gradient-control-component .gradient-pointers-field .gradient-pointer-container {
+  position: absolute;
+
+  left: 0;
+  top: 5px;
+
+  width: 22px;
+  height: auto;
+
+  cursor: grabbing;
+}

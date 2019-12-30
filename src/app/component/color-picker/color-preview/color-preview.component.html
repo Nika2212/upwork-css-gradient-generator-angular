@@ -1,0 +1,15 @@
+<div class="color-preview-component">
+  <div class="current-color-display"></div>
+  <div class="current-color-control">
+    <div class="rgba-control">
+      <label><input type="number" [(ngModel)]="RGBA[0]"></label>
+      <label><input type="number" [(ngModel)]="RGBA[1]"></label>
+      <label><input type="number" [(ngModel)]="RGBA[2]"></label>
+      <label><input type="number" [(ngModel)]="RGBA[3]"></label>
+    </div>
+    <div class="hex-reset-control">
+      <label><input type="text" [(ngModel)]="HEX"></label>
+      <button>Reset</button>
+    </div>
+  </div>
+</div>
