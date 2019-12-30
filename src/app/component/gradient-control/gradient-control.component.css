@@ -56,8 +56,13 @@
   left: 0;
   top: 5px;
 
+  transform: translateX(-11px);
+
   width: 22px;
   height: auto;
 
-  cursor: grabbing;
+  cursor: pointer;
+}
+.gradient-control-component .gradient-pointers-field .gradient-pointer-container.selected {
+  z-index: 3;
 }

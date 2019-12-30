@@ -1,3 +1,5 @@
+import { PercentToDegree } from '../pipe/percent-to-degree.pipe';
+
 export class Color {
   public RGBA: number[] = [];
   public HEX: string;
@@ -95,7 +97,44 @@ export class Color {
     return r + g + b;
   }
   static RGBToHSL(rgb: number[]): number[] {
-    return [];
+    let r = rgb[0];
+    let g = rgb[1];
+    let b = rgb[2];
+
+    r /= 255;
+    g /= 255;
+    b /= 255;
+
+    const max = Math.max(r, g, b);
+    const min = Math.min(r, g, b);
+    let h;
+    let s;
+    let l = (max + min) / 2;
+
+    if (max === min) {
+      h = s = 0; // achromatic
+    } else {
+      const d = max - min;
+      s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+
+      switch (max) {
+        case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+        case g: h = (b - r) / d + 2; break;
+        case b: h = (r - g) / d + 4; break;
+      }
+
+      h /= 6;
+    }
+
+    s *= 100;
+    l *= 100;
+
+    h = Math.round(h * 100);
+    h = PercentToDegree.Transform(h);
+    s = Math.round(s);
+    l = Math.round(l);
+
+    return [ h, s, l ];
   }
   static HEXToRGB(hex: string): number[] {
     const HEXArray = /^([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);

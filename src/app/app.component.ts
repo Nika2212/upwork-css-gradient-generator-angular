@@ -29,4 +29,31 @@ export class AppComponent implements OnInit {
 
     return pointer;
   }
+  public generateSampleColor(): Color {
+    const color = new Color();
+
+    color.RGBA = [...this.currentPointer.pointerColor.RGBA];
+    color.HSL = [...this.currentPointer.pointerColor.HSL];
+    color.HEX = this.currentPointer.pointerColor.HEX;
+
+    return color;
+  }
+  public onCurrentPointerColorChange(currentPointerColor: Color): void {
+    this.currentPointer.pointerColor = currentPointerColor;
+  }
+  public onCurrentPointerColorReset(): void {
+    this.currentPointer = this.generateSamplePointer();
+  }
+  public onCreatePointer(offset: number): void {
+    const newPointer: Pointer = new Pointer();
+
+    newPointer.pointerColor = this.generateSampleColor();
+    newPointer.pointerOffset = offset;
+
+    this.pointerArray.push(newPointer);
+    this.currentPointer = newPointer;
+  }
+  public onPointerSelect(pointer: Pointer): void {
+    this.currentPointer = pointer;
+  }
 }

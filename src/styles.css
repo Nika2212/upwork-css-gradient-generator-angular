@@ -72,9 +72,9 @@ button {
 .hue-gradient::-webkit-slider-thumb {
   position: relative;
 
-  bottom: 9px;
+  bottom: 4px;
 
-  height: 30px;
+  height: 21px;
   width: 5px;
 
   border: 1px solid rgba(0, 169, 255, .75);

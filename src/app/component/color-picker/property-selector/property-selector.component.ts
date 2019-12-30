@@ -17,8 +17,9 @@ export class PropertySelectorComponent {
     if (newValue >= 0 && newValue <= 100) {
       this.propertyValue = newValue;
     }
-
     el.value = this.propertyValue.toString(10);
+
+    this.onChange();
   }
   public onChange(): void {
     this.onChangeEvent.emit(this.propertyValue);

@@ -38,7 +38,8 @@
     <color-preview
       [RGBA]="currentPointerColor.RGBA"
       [HEX]="currentPointerColor.HEX"
-      (onRGBAChangeEvent)="onRGBAChange($event)"
-      (onHEXChangeEvent)="onHEXChange($event)"></color-preview>
+      (onRGBAChangeEvent)="onRGBAChange()"
+      (onHEXChangeEvent)="onHEXChange($event)"
+      (onResetEvent)="onReset()"></color-preview>
   </div>
 </div>

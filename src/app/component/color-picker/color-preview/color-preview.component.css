@@ -8,10 +8,42 @@
   align-items: flex-start;
 }
 .color-preview-component .current-color-display {
+  position: relative;
+
   width: 111px;
   height: 62px;
 
   border-radius: 3px;
+
+  overflow: hidden;
+}
+.color-preview-component .current-color-display .opacity-view {
+  position: absolute;
+
+  left: 0;
+  top: 0;
+
+  width: 100%;
+  height: 100px;
+
+  background-image: linear-gradient(45deg, #ccc 25%, transparent 25%),linear-gradient(-45deg, #ccc 25%, transparent 25%),linear-gradient(45deg, transparent 75%, #ccc 75%),linear-gradient(-45deg, transparent 75%, #ccc 75%);
+  background-size: 10px 10px;
+  background-position: 0 0, 0 5px, 5px -5px, -5px 0;
+
+  z-index: 1;
+}
+.color-preview-component .current-color-display .current-color {
+  position: absolute;
+
+  left: 0;
+  top: 0;
+
+  width: 100%;
+  height: 100%;
+
+  box-shadow: inset 1px 2px 6px rgba(0, 0, 0, .3);
+
+  z-index: 2;
 }
 .color-preview-component .current-color-control {
   width: auto;
