@@ -35,6 +35,10 @@
   </div>
 
   <div class="color-preview-container">
-    <color-preview [RGBA]="currentPointerColor.RGBA" [HEX]="currentPointerColor.HEX"></color-preview>
+    <color-preview
+      [RGBA]="currentPointerColor.RGBA"
+      [HEX]="currentPointerColor.HEX"
+      (onRGBAChangeEvent)="onRGBAChange($event)"
+      (onHEXChangeEvent)="onHEXChange($event)"></color-preview>
   </div>
 </div>

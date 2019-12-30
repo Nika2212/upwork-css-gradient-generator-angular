@@ -11,15 +11,40 @@ import {PercentToDegree} from '../../common/pipe/percent-to-degree.pipe';
 export class ColorPickerComponent implements OnInit {
   @Input() public currentPointerColor: Color;
 
-  public ngOnInit(): void {
-    setInterval(() => console.log(this.currentPointerColor.HEX), 1000);
-  }
+  public ngOnInit(): void {}
   public onHueChange(value: number): void {
     this.currentPointerColor.HSL[0] = PercentToDegree.Transform(value);
+    this.updateCurrentPointerColor('HSL');
   }
-  public onSaturationChange(value: number): void {}
-  public onLightnessChange(value: number): void {}
-  public onOpacityChange(value: number): void {}
-  public onHEXChange(value: string): void {}
+  public onSaturationChange(value: number): void {
+    this.currentPointerColor.HSL[1] = value;
+    this.updateCurrentPointerColor('HSL');
+  }
+  public onLightnessChange(value: number): void {
+    this.currentPointerColor.HSL[2] = value;
+    this.updateCurrentPointerColor('HSL');
+  }
+  public onOpacityChange(value: number): void {
+    this.currentPointerColor.RGBA[3] = value;
+    this.updateCurrentPointerColor('RGBA');
+  }
+  public onRGBAChange(): void {
+    this.updateCurrentPointerColor('RGBA');
+  }
+  public onHEXChange(value: string): void {
+    this.currentPointerColor.HEX = value;
+    this.updateCurrentPointerColor('HEX');
+  }
   public onReset(): void {}
+
+  public updateCurrentPointerColor(moduleName: string): void {
+    if (moduleName === 'HSL') {
+      this.currentPointerColor.HEX = Color.HSLToHEX(this.currentPointerColor.HSL);
+      this.currentPointerColor.RGBA = [...Color.HSLToRGB(this.currentPointerColor.HSL), this.currentPointerColor.RGBA[3]];
+    } else if (moduleName === 'RGBA') {
+
+    } else if (moduleName === 'HEX') {
+
+    }
+  }
 }
