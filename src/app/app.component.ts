@@ -55,6 +55,7 @@ export class AppComponent implements OnInit {
     newPointer.pointerOffset = offset;
 
     this.pointerArray.push(newPointer);
+    this.rearrangePointerArray();
     this.currentPointer = newPointer;
   }
   public onPointerSelect(pointer: Pointer): void {
@@ -62,9 +63,35 @@ export class AppComponent implements OnInit {
   }
   public onPointerMove(offset: number): void {
     this.currentPointer.pointerOffset += offset;
+    this.rearrangePointerArray();
   }
-  public getGradientPreviewCSSCode(): string {
+  public rearrangePointerArray(): void {
+    this.pointerArray.sort((a: Pointer, b: Pointer) => {
+      if (a.pointerOffsetPercentage > b.pointerOffsetPercentage) {
+        return 1;
+      } else {
+        return -1;
+      }
+    });
+  }
+  public getGradientPreviewCSSCode(): string[] {
+    const firstPointerColor = this.pointerArray[0].pointerColor;
 
+    const background = `rgb(${firstPointerColor.RGBA[0]}, ${firstPointerColor.RGBA[1]}, ${firstPointerColor.RGBA[2]})`;
+    let backgroundImage = 'linear-gradient(90deg,';
+
+    this.pointerArray.map((pointer: Pointer, i: number) => {
+      backgroundImage += ` rgba(${pointer.pointerColor.RGBA[0]}, ${pointer.pointerColor.RGBA[1]}, ${pointer.pointerColor.RGBA[2]}, ${pointer.pointerColor.RGBA[3]}) ${pointer.pointerOffsetPercentage}%`;
+      if (i === this.pointerArray.length - 1) {
+        backgroundImage += ')';
+      } else {
+        backgroundImage += ',';
+      }
+    });
+
+    return [background, backgroundImage];
   }
-  public getGradientFullCSSCode(): string {}
+  public getGradientFullCSSCode(): string {
+    return '';
+  }
 }
