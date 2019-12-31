@@ -1,8 +1,16 @@
 <div class="application">
   <section class="gradient-preview-container">
-    <gradient-control></gradient-control>
+    <gradient-control
+      [pointerArray]="pointerArray"
+      [currentPointer]="currentPointer"
+      (onCreatePointerEvent)="onCreatePointer($event)"
+      (onPointerSelectEvent)="onPointerSelect($event)"
+      (onPointerMoveEvent)="onPointerMove($event)"></gradient-control>
   </section>
   <section class="color-picker-container">
-    <color-picker [currentPointerColor]="currentPointer.pointerColor"></color-picker>
+    <color-picker
+      [currentPointerColor]="currentPointer.pointerColor"
+      (onCurrentPointerColorResetEvent)="onCurrentPointerColorReset()"
+      (onCurrentPointerColorChangeEvent)="onCurrentPointerColorChange($event)"></color-picker>
   </section>
 </div>

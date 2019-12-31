@@ -1,15 +1,18 @@
 <div class="color-preview-component">
-  <div class="current-color-display"></div>
+  <div class="current-color-display">
+    <div class="opacity-view"></div>
+    <div class="current-color" [ngStyle]="{'backgroundColor' : getRGBACSSCode()}"></div>
+  </div>
   <div class="current-color-control">
     <div class="rgba-control">
-      <label><input type="number" [(ngModel)]="RGBA[0]"></label>
-      <label><input type="number" [(ngModel)]="RGBA[1]"></label>
-      <label><input type="number" [(ngModel)]="RGBA[2]"></label>
-      <label><input type="number" [(ngModel)]="RGBA[3]"></label>
+      <label><input #redInputRef type="number" [ngModel]="RGBA[0]" (ngModelChange)="onRGBAChange(0, $event, redInputRef)"></label>
+      <label><input #greenInputRef type="number" [ngModel]="RGBA[1]" (ngModelChange)="onRGBAChange(1, $event, greenInputRef)"></label>
+      <label><input #blueInputRef type="number" [ngModel]="RGBA[2]" (ngModelChange)="onRGBAChange(2, $event, blueInputRef)"></label>
+      <label><input #alphaInputRef type="number" [ngModel]="RGBA[3]" (ngModelChange)="onRGBAChange(3, $event, alphaInputRef)"></label>
     </div>
     <div class="hex-reset-control">
-      <label><input type="text" [(ngModel)]="HEX"></label>
-      <button>Reset</button>
+      <label><input #hexInputRef type="text" [ngModel]="HEX" (ngModelChange)="onHEXChange($event, hexInputRef)"></label>
+      <button (click)="onReset()">Reset</button>
     </div>
   </div>
 </div>

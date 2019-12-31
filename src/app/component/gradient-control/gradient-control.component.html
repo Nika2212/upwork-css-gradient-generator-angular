@@ -3,9 +3,13 @@
     <div class="gradient-opacity-view"></div>
     <div class="gradient-image-view"></div>
   </div>
-  <div class="gradient-pointers-field">
-    <div class="gradient-pointer-container">
-      <gradient-pointer></gradient-pointer>
+  <div #gradientPointersFieldRef class="gradient-pointers-field" (pointerdown)="onCreatePointer($event)">
+    <div class="gradient-pointer-container"
+         *ngFor="let pointer of pointerArray"
+         [ngStyle]="{'left.px' : pointer.pointerOffset}"
+         [ngClass]="{'selected' : pointer === currentPointer}"
+         (pointerdown)="onDragStart($event, pointer)">
+      <gradient-pointer [isActive]="pointer === currentPointer" [RGBA]="pointer.pointerColor.RGBA"></gradient-pointer>
     </div>
   </div>
 </div>
