@@ -11,9 +11,7 @@ import {PercentToDegree} from '../../common/pipe/percent-to-degree.pipe';
 export class ColorPickerComponent implements OnInit {
   @Input() public currentPointerColor: Color;
 
-  public ngOnInit(): void {
-    setInterval(() => console.log(this.currentPointerColor.HEX), 1000);
-  }
+  public ngOnInit(): void {}
   public onHueChange(value: number): void {
     this.currentPointerColor.HSL[0] = PercentToDegree.Transform(value);
   }
