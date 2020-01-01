@@ -1,14 +1,15 @@
 <div class="gradient-control-component">
   <div class="gradient-view">
     <div class="gradient-opacity-view"></div>
-    <div class="gradient-image-view"></div>
+    <div class="gradient-image-view" [ngStyle]="{'backgroundImage' : gradientCSSCode}"></div>
   </div>
-  <div #gradientPointersFieldRef class="gradient-pointers-field" (pointerdown)="onCreatePointer($event)">
+  <div #gradientPointersFieldRef class="gradient-pointers-field" (mousedown)="onCreatePointer($event)">
+    <label class="pointer-field-title">Create or Drag Color Pointer</label>
     <div class="gradient-pointer-container"
          *ngFor="let pointer of pointerArray"
          [ngStyle]="{'left.px' : pointer.pointerOffset}"
          [ngClass]="{'selected' : pointer === currentPointer}"
-         (pointerdown)="onDragStart($event, pointer)">
+         (mousedown)="onDragStart($event, pointer)">
       <gradient-pointer [isActive]="pointer === currentPointer" [RGBA]="pointer.pointerColor.RGBA"></gradient-pointer>
     </div>
   </div>

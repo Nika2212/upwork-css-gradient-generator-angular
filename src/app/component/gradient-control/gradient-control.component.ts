@@ -21,6 +21,7 @@ export class GradientControlComponent implements OnInit {
   @Output() public onCreatePointerEvent: EventEmitter<number> = new EventEmitter<number>();
   @Output() public onPointerSelectEvent: EventEmitter<Pointer> = new EventEmitter<Pointer>();
   @Output() public onPointerMoveEvent: EventEmitter<number> = new EventEmitter<number>();
+  @Output() public gradientPointersFieldWidthEvent: EventEmitter<number> = new EventEmitter<number>();
   @Input() public pointerArray: Pointer[] = [];
   @Input() public currentPointer: Pointer;
   @Input() public gradientCSSCode: string;
@@ -31,6 +32,7 @@ export class GradientControlComponent implements OnInit {
 
   public ngOnInit(): void {
     this.hangDraggingEvents();
+    this.gradientPointersFieldWidthEvent.emit(this.getGradientPointersFieldRefWidth());
   }
   public onCreatePointer(event: MouseEvent): void {
     if (event.target !== this.gradientPointersField.nativeElement) {
@@ -77,14 +79,17 @@ export class GradientControlComponent implements OnInit {
     this.canDrag = true;
 
     document.body.style.userSelect = 'none';
-    document.body.addEventListener('pointermove', this.onDragEventHandler, true);
-    document.body.addEventListener('pointerup', this.onDragEndEventHandler, true);
+    document.body.addEventListener('mousemove', this.onDragEventHandler, true);
+    document.body.addEventListener('mouseup', this.onDragEndEventHandler, true);
   }
   private disableDragging(): void {
     this.canDrag = false;
 
     document.body.style.userSelect = 'inherit';
-    document.body.removeEventListener('pointermove', this.onDragEventHandler, true);
-    document.body.removeEventListener('pointerup', this.onDragEndEventHandler, true);
+    document.body.removeEventListener('mousemove', this.onDragEventHandler, true);
+    document.body.removeEventListener('mouseup', this.onDragEndEventHandler, true);
+  }
+  private getGradientPointersFieldRefWidth(): number {
+    return this.gradientPointersField.nativeElement.offsetWidth;
   }
 }

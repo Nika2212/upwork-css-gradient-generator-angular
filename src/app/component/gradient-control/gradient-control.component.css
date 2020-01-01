@@ -35,6 +35,17 @@
 
   z-index: 1;
 }
+.gradient-control-component .gradient-view .gradient-image-view {
+  position: absolute;
+
+  left: 0;
+  top: 0;
+
+  width: 100%;
+  height: 100%;
+
+  z-index: 2;
+}
 .gradient-control-component .gradient-pointers-field {
   position: relative;
 
@@ -46,9 +57,32 @@
   border: 1px dashed rgba(0, 179, 255, 0.30);
   border-radius: 3px;
 
-  background-color: rgba(0, 179, 255, 0.16);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: rgba(0, 179, 255, 0.15);
+
+  transition-property: background-color, border;
+  transition-timing-function: ease-out;
+  transition-duration: 180ms;
 
   cursor: copy;
+}
+.gradient-control-component .gradient-pointers-field:hover {
+  background-color: rgba(0, 179, 255, 0);
+  border-color: rgba(0, 179, 255, 0.75);
+}
+.gradient-control-component .gradient-pointers-field .pointer-field-title {
+  font-family: 'OpenSans Bold', sans-serif;;
+  color: rgba(0, 169, 255, 0.5);
+
+  transition: color 180ms ease-out;
+
+  pointer-events: none;
+}
+.gradient-control-component .gradient-pointers-field:hover .pointer-field-title {
+  color: rgba(0, 169, 255, 0);;
 }
 .gradient-control-component .gradient-pointers-field .gradient-pointer-container {
   position: absolute;

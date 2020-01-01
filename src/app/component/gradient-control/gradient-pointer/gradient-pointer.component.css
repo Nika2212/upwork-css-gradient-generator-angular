@@ -11,7 +11,7 @@
 
   transform: rotate(225deg);
 
-  transition: top 120ms ease-out;
+  transition: border 90ms ease-out;
 
   box-shadow: -1px -1px 3px rgba(0, 0, 0, .3);
 

@@ -4,7 +4,7 @@
   padding: 30px 15px 15px;
   margin-right: 15px;
 
-  width: 320px;
+  width: 100%;
   height: auto;
 
   border: 3px solid #fafafa;
@@ -44,6 +44,8 @@
   color: #fafafa;
 
   user-select: none;
+
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, .3);
 }
 .color-picker-component .property-selector-container {
   padding-bottom: 10px;

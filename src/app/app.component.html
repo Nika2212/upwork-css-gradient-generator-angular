@@ -3,14 +3,38 @@
     <gradient-control
       [pointerArray]="pointerArray"
       [currentPointer]="currentPointer"
+      [gradientCSSCode]="gradientPreviewCSSCode"
       (onCreatePointerEvent)="onCreatePointer($event)"
       (onPointerSelectEvent)="onPointerSelect($event)"
-      (onPointerMoveEvent)="onPointerMove($event)"></gradient-control>
+      (onPointerMoveEvent)="onPointerMove($event)"
+      (gradientPointersFieldWidthEvent)="getGradientPointersFieldWidth($event)"></gradient-control>
   </section>
-  <section class="color-picker-container">
-    <color-picker
-      [currentPointerColor]="currentPointer.pointerColor"
-      (onCurrentPointerColorResetEvent)="onCurrentPointerColorReset()"
-      (onCurrentPointerColorChangeEvent)="onCurrentPointerColorChange($event)"></color-picker>
+
+  <section *ngIf="isMobileDevice" class="location-selector-container">
+    <location-selector
+      [pointerLocation]="currentPointer.pointerOffsetPercentage"
+      (onPointerLocationChangeEvent)="onCurrentPointerLocationChange($event)"></location-selector>
+  </section>
+
+  <section class="main-panel-container">
+    <div class="color-picker-container">
+      <color-picker
+        [currentPointerColor]="currentPointer.pointerColor"
+        (onCurrentPointerColorResetEvent)="onCurrentPointerColorReset()"
+        (onCurrentPointerColorChangeEvent)="onCurrentPointerColorChange($event)"></color-picker>
+    </div>
+    <div class="gradient-full-container">
+      <full-gradient
+        [gradientCSSCode]="gradientFullCSSCode"
+        [gradientDirection]="gradientDirection"
+        [gradientType]="gradientType"
+        [gradientFlip]="gradientFlip"
+        (onGradientDirectionChangeEvent)="onGradientDirectionChange($event)"
+        (onGradientTypeChangeEvent)="onGradientRadialStateChange()"
+        (onGradientFlipEvent)="onGradientFlip()"></full-gradient>
+    </div>
+    <div class="output-code-container">
+      <code-output></code-output>
+    </div>
   </section>
 </div>

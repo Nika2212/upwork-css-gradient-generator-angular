@@ -14,7 +14,8 @@ export class ColorPickerComponent implements OnInit {
   @Output() public onCurrentPointerColorChangeEvent: EventEmitter<Color> = new EventEmitter<Color>();
   @Output() public onCurrentPointerColorResetEvent: EventEmitter<null> = new EventEmitter<null>();
 
-  public ngOnInit(): void {}
+  public ngOnInit(): void {
+  }
   public onHueChange(value: number): void {
     this.currentPointerColor.HSL[0] = PercentToDegree.Transform(value);
     this.updateCurrentPointerColor('HSL');

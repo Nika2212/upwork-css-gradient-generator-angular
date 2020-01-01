@@ -4,15 +4,21 @@ import {NgModule} from '@angular/core';
 import {AppComponent} from './app.component';
 import {ColorPickerModule} from './component/color-picker/color-picker.module';
 import {GradientControlModule} from './component/gradient-control/gradient-control.module';
+import {FullGradientModule} from './component/full-gradient/full-gradient.module';
+import {OutputModule} from './component/output/output.module';
+import {LocationSelectorModule} from './component/location-selector/location-selector.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
     ColorPickerModule,
-    GradientControlModule
+    GradientControlModule,
+    FullGradientModule,
+    OutputModule,
+    LocationSelectorModule
   ],
   providers: [],
   exports: [],
