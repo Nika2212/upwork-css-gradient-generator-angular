@@ -79,15 +79,15 @@ export class GradientControlComponent implements OnInit {
     this.canDrag = true;
 
     document.body.style.userSelect = 'none';
-    document.body.addEventListener('mousemove', this.onDragEventHandler, true);
-    document.body.addEventListener('mouseup', this.onDragEndEventHandler, true);
+    document.addEventListener('mousemove', this.onDragEventHandler, true);
+    document.addEventListener('mouseup', this.onDragEndEventHandler, true);
   }
   private disableDragging(): void {
     this.canDrag = false;
 
     document.body.style.userSelect = 'inherit';
-    document.body.removeEventListener('mousemove', this.onDragEventHandler, true);
-    document.body.removeEventListener('mouseup', this.onDragEndEventHandler, true);
+    document.removeEventListener('mousemove', this.onDragEventHandler, true);
+    document.removeEventListener('mouseup', this.onDragEndEventHandler, true);
   }
   private getGradientPointersFieldRefWidth(): number {
     return this.gradientPointersField.nativeElement.offsetWidth;
