@@ -101,6 +101,24 @@ export class AppComponent implements OnInit {
 
     this.renderGradient();
   }
+  public onGradientDirectionChange(direction: number): void {
+    this.gradientDirection = direction;
+    this.renderGradient();
+  }
+  public onGradientRadialStateChange(): void {
+    if (this.gradientType === 'linear-gradient') {
+      this.gradientType = 'radial-gradient';
+    } else if (this.gradientType === 'radial-gradient') {
+      this.gradientType = 'linear-gradient';
+    }
+
+    this.renderGradient();
+  }
+  public onGradientFlip(): void {
+    this.gradientFlip = !this.gradientFlip;
+
+    this.renderGradient();
+  }
   public rearrangePointerArray(): void {
     this.pointerArray.sort((a: Pointer, b: Pointer) => {
       if (a.pointerOffsetPercentage > b.pointerOffsetPercentage) {
@@ -109,6 +127,10 @@ export class AppComponent implements OnInit {
         return -1;
       }
     });
+  }
+  public renderGradient(): void {
+    this.gradientPreviewCSSCode = this.getGradientPreviewCSSCode();
+    this.gradientFullCSSCode = this.getGradientFullCSSCode();
   }
   public getGradientPreviewCSSCode(): string {
     const firstPointerColor = this.pointerArray[0].pointerColor;
@@ -139,7 +161,16 @@ export class AppComponent implements OnInit {
     let backgroundImage: string = '';
 
     if (this.gradientType === 'linear-gradient') {
-      backgroundImage += `linear-gradient(${this.gradientDirection}deg, `;
+      let flippedDirection = this.gradientDirection;
+
+      if (this.gradientFlip) {
+        flippedDirection += 180;
+        flippedDirection = flippedDirection >= 360 ? flippedDirection - 360 : flippedDirection;
+        backgroundImage += `linear-gradient(${flippedDirection}deg, `;
+      } else {
+        backgroundImage += `linear-gradient(${this.gradientDirection}deg, `;
+      }
+
     } else if (this.gradientType === 'radial-gradient') {
       backgroundImage += `radial-gradient(circle, `;
     }
@@ -161,27 +192,5 @@ export class AppComponent implements OnInit {
   }
   public getGradientPointersFieldWidth(width: number): void {
     this.gradientPointersFieldWidth = width;
-  }
-  public renderGradient(): void {
-    this.gradientPreviewCSSCode = this.getGradientPreviewCSSCode();
-    this.gradientFullCSSCode = this.getGradientFullCSSCode();
-  }
-  public onGradientDirectionChange(direction: number): void {
-    this.gradientDirection = direction;
-    this.renderGradient();
-  }
-  public onGradientRadialStateChange(): void {
-    if (this.gradientType === 'linear-gradient') {
-      this.gradientType = 'radial-gradient';
-    } else if (this.gradientType === 'radial-gradient') {
-      this.gradientType = 'linear-gradient';
-    }
-
-    this.renderGradient();
-  }
-  public onGradientFlip(): void {
-    this.gradientFlip = !this.gradientFlip;
-
-    this.renderGradient();
   }
 }
