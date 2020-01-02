@@ -7,10 +7,11 @@ import {GradientControlModule} from './component/gradient-control/gradient-contr
 import {FullGradientModule} from './component/full-gradient/full-gradient.module';
 import {OutputModule} from './component/output/output.module';
 import {LocationSelectorModule} from './component/location-selector/location-selector.module';
+import { GradientPatternsModule } from './component/gradient-patterns/gradient-patterns.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -18,7 +19,8 @@ import {LocationSelectorModule} from './component/location-selector/location-sel
     GradientControlModule,
     FullGradientModule,
     OutputModule,
-    LocationSelectorModule
+    LocationSelectorModule,
+    GradientPatternsModule
   ],
   providers: [],
   exports: [],

@@ -1,4 +1,8 @@
 <div class="application">
+  <section class="gradient-patterns-container">
+    <gradient-patterns [rawGradientArray]="rawGradientArray" (onGradientSelectEvent)="parseRawGradientArray($event)"></gradient-patterns>
+  </section>
+
   <section class="gradient-preview-container">
     <gradient-control
       [pointerArray]="pointerArray"

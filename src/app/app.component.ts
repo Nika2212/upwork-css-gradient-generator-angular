@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Pointer} from './common/model/color-pointer.model';
 import {Color} from './common/model/color.model';
-import {zip} from 'rxjs';
+import {TemplatePointer} from './common/model/template-pointer.model';
 
 @Component({
   selector: 'app-root',
@@ -19,6 +19,8 @@ export class AppComponent implements OnInit {
   public gradientPointersFieldWidth: number;
   public gradientPreviewCSSCode: string;
   public gradientFullCSSCode: string;
+  public rawGradientArray: any[];
+
 
   public ngOnInit(): void {
     this.isMobileDevice = window.screen.width <= 768;
@@ -30,7 +32,10 @@ export class AppComponent implements OnInit {
     this.gradientFlip = false;
 
     this.renderGradient();
+
+    this.generateRawGradientArray();
   }
+
   public generateSamplePointer(): Pointer {
     const color = new Color();
     const pointer = new Pointer();
@@ -45,6 +50,7 @@ export class AppComponent implements OnInit {
 
     return pointer;
   }
+
   public generateSampleColor(): Color {
     const color = new Color();
 
@@ -56,10 +62,12 @@ export class AppComponent implements OnInit {
 
     return color;
   }
+
   public onCurrentPointerColorChange(currentPointerColor: Color): void {
     this.currentPointer.pointerColor = currentPointerColor;
     this.renderGradient();
   }
+
   public onCurrentPointerColorReset(): void {
     const color = new Color();
 
@@ -71,6 +79,7 @@ export class AppComponent implements OnInit {
 
     this.renderGradient();
   }
+
   public onCreatePointer(offset: number): void {
     const newPointer: Pointer = new Pointer();
 
@@ -84,15 +93,18 @@ export class AppComponent implements OnInit {
 
     this.renderGradient();
   }
+
   public onPointerSelect(pointer: Pointer): void {
     this.currentPointer = pointer;
   }
+
   public onPointerMove(offset: number): void {
     this.currentPointer.pointerOffset += offset;
     this.currentPointer.pointerOffsetPercentage = (this.currentPointer.pointerOffset * 100) / this.gradientPointersFieldWidth;
     this.rearrangePointerArray();
     this.renderGradient();
   }
+
   public onCurrentPointerLocationChange(value: number): void {
     this.currentPointer.pointerOffsetPercentage = Math.round(value);
     this.currentPointer.pointerOffset = (value * this.gradientPointersFieldWidth) / 100;
@@ -101,10 +113,12 @@ export class AppComponent implements OnInit {
 
     this.renderGradient();
   }
+
   public onGradientDirectionChange(direction: number): void {
     this.gradientDirection = direction;
     this.renderGradient();
   }
+
   public onGradientRadialStateChange(): void {
     if (this.gradientType === 'linear-gradient') {
       this.gradientType = 'radial-gradient';
@@ -114,11 +128,13 @@ export class AppComponent implements OnInit {
 
     this.renderGradient();
   }
+
   public onGradientFlip(): void {
     this.gradientFlip = !this.gradientFlip;
 
     this.renderGradient();
   }
+
   public rearrangePointerArray(): void {
     this.pointerArray.sort((a: Pointer, b: Pointer) => {
       if (a.pointerOffsetPercentage > b.pointerOffsetPercentage) {
@@ -128,10 +144,13 @@ export class AppComponent implements OnInit {
       }
     });
   }
+
   public renderGradient(): void {
     this.gradientPreviewCSSCode = this.getGradientPreviewCSSCode();
     this.gradientFullCSSCode = this.getGradientFullCSSCode();
+    this.getOutputCode();
   }
+
   public getGradientPreviewCSSCode(): string {
     const firstPointerColor = this.pointerArray[0].pointerColor;
     let backgroundImage = 'linear-gradient(90deg,';
@@ -153,6 +172,7 @@ export class AppComponent implements OnInit {
 
     return backgroundImage;
   }
+
   public getGradientFullCSSCode(): string {
     if (this.pointerArray.length === 1) {
       return this.gradientPreviewCSSCode;
@@ -177,7 +197,7 @@ export class AppComponent implements OnInit {
 
     this.pointerArray.map((pointer: Pointer, index: number) => {
       const RGBA = pointer.pointerColor.RGBA;
-      const position = pointer.pointerOffsetPercentage;
+      const position = Math.round(pointer.pointerOffsetPercentage);
 
       backgroundImage += `rgba(${RGBA[0]}, ${RGBA[1]}, ${RGBA[2]}, ${RGBA[3] / 100}) ${position}%`;
 
@@ -190,7 +210,82 @@ export class AppComponent implements OnInit {
 
     return backgroundImage;
   }
+
   public getGradientPointersFieldWidth(width: number): void {
     this.gradientPointersFieldWidth = width;
+  }
+
+  public getOutputCode(): void {
+    // let background: string = '';
+    // let backgroundImage: string = '';
+
+    // const firstColorRGBA = this.pointerArray[0].pointerColor.RGBA;
+
+    // background = `rgb(${firstColorRGBA[0]}, ${firstColorRGBA[1]}, ${firstColorRGBA[2]}, ${firstColorRGBA[3]})`;
+    // backgroundImage = this.getGradientFullCSSCode();
+  }
+
+  public createTemplatePointer(templatePointer: TemplatePointer): void {
+    const newPointer: Pointer = new Pointer();
+    const newColor: Color = new Color();
+
+    newColor.RGBA = [...templatePointer.RGBA];
+    newColor.HSL = Color.RGBToHSL(newColor.RGBA);
+    newColor.HEX = Color.RGBToHEX(newColor.RGBA);
+
+    newPointer.pointerColor = newColor;
+    newPointer.pointerOffset = (templatePointer.position * this.gradientPointersFieldWidth) / 100;
+    newPointer.pointerOffsetPercentage = templatePointer.position;
+
+    this.pointerArray.push(newPointer);
+    this.rearrangePointerArray();
+    this.currentPointer = newPointer;
+
+    this.renderGradient();
+  }
+
+  public parseRawGradientArray(index: number): void {
+    this.pointerArray = [];
+
+    const gradient = this.rawGradientArray[index];
+    for (const pointer of gradient.pointers) {
+      const templatePointer = new TemplatePointer();
+
+      templatePointer.RGBA = [...pointer.RGB, 100];
+      templatePointer.position = pointer.position;
+
+      this.createTemplatePointer(templatePointer);
+    }
+
+    console.log(this.pointerArray);
+  }
+
+  private generateRawGradientArray(): void {
+    this.rawGradientArray = [
+      {
+        pointers: [
+          {
+            RGB: [248, 80, 50],
+            position: 0
+          },
+          {
+            RGB: [241, 111, 92],
+            position: 50
+          },
+          {
+            RGB: [246, 41, 12],
+            position: 51
+          },
+          {
+            RGB: [240, 47, 23],
+            position: 71
+          },
+          {
+            RGB: [231, 56, 39],
+            position: 100
+          }
+        ]
+      }
+    ];
   }
 }
