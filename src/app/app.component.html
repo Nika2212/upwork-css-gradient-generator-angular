@@ -11,6 +11,7 @@
       (onCreatePointerEvent)="onCreatePointer($event)"
       (onPointerSelectEvent)="onPointerSelect($event)"
       (onPointerMoveEvent)="onPointerMove($event)"
+      (onPointerRemoveEvent)="onPointerRemove($event)"
       (gradientPointersFieldWidthEvent)="getGradientPointersFieldWidth($event)"></gradient-control>
   </section>
 
@@ -38,7 +39,7 @@
         (onGradientFlipEvent)="onGradientFlip()"></full-gradient>
     </div>
     <div class="output-code-container">
-      <code-output></code-output>
+      <code-output [CSSCode]="outputCode"></code-output>
     </div>
   </section>
 </div>

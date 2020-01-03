@@ -22,6 +22,7 @@ export class GradientControlComponent implements OnInit {
   @Output() public onPointerSelectEvent: EventEmitter<Pointer> = new EventEmitter<Pointer>();
   @Output() public onPointerMoveEvent: EventEmitter<number> = new EventEmitter<number>();
   @Output() public gradientPointersFieldWidthEvent: EventEmitter<number> = new EventEmitter<number>();
+  @Output() public onPointerRemoveEvent: EventEmitter<number> = new EventEmitter<number>();
   @Input() public pointerArray: Pointer[] = [];
   @Input() public currentPointer: Pointer;
   @Input() public gradientCSSCode: string;
@@ -69,6 +70,9 @@ export class GradientControlComponent implements OnInit {
   }
   public onDragEnd(event: MouseEvent): void {
     this.disableDragging();
+  }
+  public onPointerRemove(index: number): void {
+    this.onPointerRemoveEvent.emit(index);
   }
 
   private hangDraggingEvents(): void {

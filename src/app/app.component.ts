@@ -20,6 +20,7 @@ export class AppComponent implements OnInit {
   public gradientPreviewCSSCode: string;
   public gradientFullCSSCode: string;
   public rawGradientArray: any[];
+  public outputCode: string[] = [];
 
 
   public ngOnInit(): void {
@@ -105,6 +106,13 @@ export class AppComponent implements OnInit {
     this.renderGradient();
   }
 
+  public onPointerRemove(index: number): void {
+    this.pointerArray.splice(index, 1);
+    this.onPointerSelect(this.pointerArray[this.pointerArray.length - 1]);
+    this.rearrangePointerArray();
+    this.renderGradient();
+  }
+
   public onCurrentPointerLocationChange(value: number): void {
     this.currentPointer.pointerOffsetPercentage = Math.round(value);
     this.currentPointer.pointerOffset = (value * this.gradientPointersFieldWidth) / 100;
@@ -148,7 +156,7 @@ export class AppComponent implements OnInit {
   public renderGradient(): void {
     this.gradientPreviewCSSCode = this.getGradientPreviewCSSCode();
     this.gradientFullCSSCode = this.getGradientFullCSSCode();
-    this.getOutputCode();
+    this.outputCode = this.getOutputCode();
   }
 
   public getGradientPreviewCSSCode(): string {
@@ -215,14 +223,16 @@ export class AppComponent implements OnInit {
     this.gradientPointersFieldWidth = width;
   }
 
-  public getOutputCode(): void {
-    // let background: string = '';
-    // let backgroundImage: string = '';
+  public getOutputCode(): string[] {
+    let background: string = '';
+    let backgroundImage: string = '';
 
-    // const firstColorRGBA = this.pointerArray[0].pointerColor.RGBA;
+    const firstColorRGBA = this.pointerArray[0].pointerColor.RGBA;
 
-    // background = `rgb(${firstColorRGBA[0]}, ${firstColorRGBA[1]}, ${firstColorRGBA[2]}, ${firstColorRGBA[3]})`;
-    // backgroundImage = this.getGradientFullCSSCode();
+    background = `rgb(${firstColorRGBA[0]}, ${firstColorRGBA[1]}, ${firstColorRGBA[2]}, ${firstColorRGBA[3]})`;
+    backgroundImage = this.getGradientFullCSSCode();
+
+    return [background, backgroundImage];
   }
 
   public createTemplatePointer(templatePointer: TemplatePointer): void {
@@ -256,8 +266,6 @@ export class AppComponent implements OnInit {
 
       this.createTemplatePointer(templatePointer);
     }
-
-    console.log(this.pointerArray);
   }
 
   private generateRawGradientArray(): void {
@@ -285,7 +293,300 @@ export class AppComponent implements OnInit {
             position: 100
           }
         ]
-      }
+      },
+
+      {
+        pointers: [
+          {
+            RGB: [255, 93, 177],
+            position: 0
+          },
+          {
+            RGB: [239, 1, 124],
+            position: 100
+          }
+        ]
+      },
+
+      {
+        pointers: [
+          {
+            RGB: [252, 234, 187],
+            position: 0
+          },
+          {
+            RGB: [252, 205, 77],
+            position: 50
+          },
+          {
+            RGB: [248, 181, 0],
+            position: 51
+          },
+          {
+            RGB: [251, 223, 147],
+            position: 100
+          }
+        ]
+      },
+
+      {
+        pointers: [
+          {
+            RGB: [239, 197, 202],
+            position: 0
+          },
+          {
+            RGB: [210, 75, 90],
+            position: 50
+          },
+          {
+            RGB: [186, 39, 55],
+            position: 51
+          },
+          {
+            RGB: [241, 142, 153],
+            position: 100
+          }
+        ]
+      },
+
+      {
+        pointers: [
+          {
+            RGB: [0, 255, 255],
+            position: 47
+          },
+          {
+            RGB: [16, 0, 255],
+            position: 100
+          }
+        ]
+      },
+
+      {
+        pointers: [
+          {
+            RGB: [34, 193, 195],
+            position: 0
+          },
+          {
+            RGB: [253, 187, 45],
+            position: 100
+          }
+        ]
+      },
+
+      {
+        pointers: [
+          {
+            RGB: [83, 53, 31],
+            position: 0
+          },
+          {
+            RGB: [49, 72, 196],
+            position: 100
+          }
+        ]
+      },
+
+      {
+        pointers: [
+          {
+            RGB: [131, 58, 180],
+            position: 0
+          },
+          {
+            RGB: [253, 29, 29],
+            position: 50
+          },
+          {
+            RGB: [252, 176, 69],
+            position: 100
+          }
+        ]
+      },
+
+      {
+        pointers: [
+          {
+            RGB: [238, 174, 202],
+            position: 0
+          },
+          {
+            RGB: [148, 187, 233],
+            position: 100
+          }
+        ]
+      },
+
+      {
+        pointers: [
+          {
+            RGB: [5, 5, 5],
+            position: 0
+          },
+          {
+            RGB: [0, 180, 255],
+            position: 50
+          },
+          {
+            RGB: [5, 5, 5],
+            position: 100
+          }
+        ]
+      },
+
+      {
+        pointers: [
+          {
+            RGB: [167, 207, 223],
+            position: 0
+          },
+          {
+            RGB: [35, 83, 138],
+            position: 100
+          }
+        ]
+      },
+
+      {
+        pointers: [
+          {
+            RGB: [222, 239, 255],
+            position: 0
+          },
+          {
+            RGB: [152, 190, 222],
+            position: 100
+          }
+        ]
+      },
+
+      {
+        pointers: [
+          {
+            RGB: [255, 255, 255],
+            position: 0
+          },
+          {
+            RGB: [241, 241, 241],
+            position: 50
+          },
+          {
+            RGB: [225, 225, 225],
+            position: 51
+          },
+          {
+            RGB: [246, 246, 246],
+            position: 100
+          }
+        ]
+      },
+
+      {
+        pointers: [
+          {
+            RGB: [169, 3, 41],
+            position: 0
+          },
+          {
+            RGB: [143, 2, 34],
+            position: 44
+          },
+          {
+            RGB: [109, 0, 25],
+            position: 100
+          }
+        ]
+      },
+
+      {
+        pointers: [
+          {
+            RGB: [183, 222, 237],
+            position: 0
+          },
+          {
+            RGB: [113, 206, 239],
+            position: 50
+          },
+          {
+            RGB: [33, 180, 226],
+            position: 51
+          },
+          {
+            RGB: [183, 222, 237],
+            position: 100
+          },
+        ]
+      },
+
+      {
+        pointers: [
+          {
+            RGB: [73, 155, 234],
+            position: 0
+          },
+          {
+            RGB: [32, 124, 229],
+            position: 100
+          }
+        ]
+      },
+
+      {
+        pointers: [
+          {
+            RGB: [255, 0, 132],
+            position: 0
+          },
+          {
+            RGB: [255, 0, 132],
+            position: 100
+          }
+        ]
+      },
+
+      {
+        pointers: [
+          {
+            RGB: [210, 255, 82],
+            position: 0
+          },
+          {
+            RGB: [145, 232, 66],
+            position: 100
+          }
+        ]
+      },
+
+      {
+        pointers: [
+          {
+            RGB: [210, 255, 82],
+            position: 0
+          },
+          {
+            RGB: [145, 232, 66],
+            position: 100
+          }
+        ]
+      },
+
+      {
+        pointers: [
+          {
+            RGB: [255, 175, 75],
+            position: 0
+          },
+          {
+            RGB: [255, 146, 10],
+            position: 100
+          }
+        ]
+      },
+
+
     ];
   }
 }

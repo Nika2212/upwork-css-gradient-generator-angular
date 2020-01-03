@@ -6,10 +6,12 @@
   <div #gradientPointersFieldRef class="gradient-pointers-field" (mousedown)="onCreatePointer($event)">
     <label class="pointer-field-title">Create or Drag Color Pointer</label>
     <div class="gradient-pointer-container"
-         *ngFor="let pointer of pointerArray"
+         *ngFor="let pointer of pointerArray; let i = index"
          [ngStyle]="{'left.px' : pointer.pointerOffset}"
          [ngClass]="{'selected' : pointer === currentPointer}"
          (mousedown)="onDragStart($event, pointer)">
+      <span class="pointer-position">{{pointer.pointerOffsetPercentage.toFixed(1)}}%</span>
+      <button *ngIf="pointerArray.length > 1" [ngClass]="{'left-sided' : pointer.pointerOffsetPercentage > 50}" (click)="onPointerRemove(i)" class="pointer-remove-btn">x</button>
       <gradient-pointer [isActive]="pointer === currentPointer" [RGBA]="pointer.pointerColor.RGBA"></gradient-pointer>
     </div>
   </div>
