@@ -1,0 +1,6 @@
+<div class="gradient-patterns-component">
+  <div class="gradient"
+       *ngFor="let gradient of rawGradientArray; let i = index"
+       (click)="onGradientSelect(i)"
+       [ngStyle]="{'background' : getGradientCSSCode(gradient)}"></div>
+</div>

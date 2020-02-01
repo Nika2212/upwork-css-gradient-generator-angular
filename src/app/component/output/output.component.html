@@ -1,0 +1,38 @@
+<div class="output-component">
+  <div class="output-component-heading">Output</div>
+  <div class="output-container">
+    <ul class="code-lines">
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+      <li>4</li>
+      <li>5</li>
+      <li>6</li>
+      <li>7</li>
+      <li>8</li>
+      <li>9</li>
+      <li>10</li>
+      <li>11</li>
+      <li>12</li>
+    </ul>
+
+    <div class="code-content">
+      <div class="tabulator">
+        <label (click)="changeCurrentTab()">{{currentTabName}}</label>
+      </div>
+      <div class="code-value">
+        <div #cssOutputRef *ngIf="currentTabName === 'CSS'" class="css">
+          <p><span>background: </span>{{CSSCode[0]}};</p>
+          <p><span>background: </span>{{CSSCode[1]}};</p>
+          <p><span>background: </span>-moz-{{CSSCode[1]}};</p>
+          <p><span>background: </span>-webkit-{{CSSCode[1]}};</p>
+        </div>
+        <div #sassOutputRef *ngIf="currentTabName === 'SASS'" class="sass">
+          <p><span>background-color: </span>{{CSSCode[0]}};</p>
+          <p><span>background: </span>@include background-image({{CSSCode[1]}});</p>
+        </div>
+      </div>
+      <button class="clipboard" (click)="copyToClipboard()">Copy</button>
+    </div>
+  </div>
+</div>

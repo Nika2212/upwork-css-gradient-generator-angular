@@ -1,0 +1,11 @@
+<div class="location-selector-component">
+  <div class="location-component-heading">Location</div>
+  <div class="location-selector-container">
+    <property-selector
+      [propertyName]="'location'"
+      [propertyClassName]="'default-gradient'"
+      [propertyValue]="pointerLocation"
+      (onChangeEvent)="onLocationChange($event)">
+    </property-selector>
+  </div>
+</div>

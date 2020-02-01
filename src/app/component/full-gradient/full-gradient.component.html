@@ -1,0 +1,16 @@
+<div class="full-gradient-component">
+  <div class="gradient-component-heading">Gradient</div>
+  <div class="gradient-container">
+    <div class="opacity"></div>
+    <div class="gradient" [ngStyle]="{'backgroundImage' : gradientCSSCode}"></div>
+  </div>
+
+  <div class="gradient-control">
+    <button [disabled]="gradientType === 'radial-gradient'" (click)="onDirectionChange(direction)" [ngClass]="{'selected' : gradientDirection === direction}" *ngFor="let direction of gradientDirectionArray">
+      <img src="../../assets/svg/arrow_right.svg" alt="">
+    </button>
+
+    <button (click)="onGradientTypeChange()" [ngClass]="{'selected' : gradientType === 'radial-gradient'}"><img src="../../assets/svg/radial.svg" alt=""></button>
+    <button [disabled]="gradientType === 'radial-gradient'" (click)="onGradientFlip()" [ngClass]="{'selected' : gradientFlip}"><img src="../../assets/svg/flip.svg" alt=""></button>
+  </div>
+</div>
